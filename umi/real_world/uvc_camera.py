@@ -98,7 +98,8 @@ class UvcCamera(mp.Process):
         # create video recorder
         if video_recorder is None:
             # default to nvenc GPU encoder
-            video_recorder = VideoRecorder.create_hevc_nvenc(
+            # video_recorder = VideoRecorder.create_hevc_nvenc(
+            video_recorder = VideoRecorder.create_h264(
                 shm_manager=shm_manager,
                 fps=capture_fps, 
                 input_pix_fmt='bgr24', 
