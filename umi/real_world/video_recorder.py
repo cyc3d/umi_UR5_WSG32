@@ -154,6 +154,7 @@ class VideoRecorder(mp.Process):
     def write_frame(self, img: np.ndarray, frame_time=None):
         if not self.is_ready():
             raise RuntimeError('Must run start() before writing!')
+        return None
             
         n_repeats = 1
         if (not self.no_repeat) and (self.start_time is not None):
@@ -189,6 +190,8 @@ class VideoRecorder(mp.Process):
         """
         if not self.is_ready():
             raise RuntimeError('Must run start() before writing!')
+            
+        return None
             
         n_repeats = 1
         if (not self.no_repeat) and (self.start_time is not None):
