@@ -78,7 +78,15 @@ class BimanualUmiEnv:
 
         # Wait for all v4l cameras to be back online
         time.sleep(0.1)
-        v4l_paths = get_sorted_v4l_paths()
+        v4l_paths = get_sorted_v4l_paths() 
+        
+        # Filter v4l_paths to keep only Elgato devices
+        v4l_paths = [path for path in v4l_paths if 'Elgato' in path]
+
+        
+        # Print all v4l_paths
+        print(f"v4l_paths: {v4l_paths}")
+        
         if camera_reorder is not None:
             paths = [v4l_paths[i] for i in camera_reorder]
             v4l_paths = paths
@@ -101,6 +109,8 @@ class BimanualUmiEnv:
         vis_transform = list()
         for path in v4l_paths:
             if 'Cam_Link_4K' in path:
+            # if 'Elgato' in path:     # also need to change the Go Pro to 4K
+                print('3840x2160 30Hz')
                 res = (3840, 2160)
                 fps = 30
                 buf = 3
@@ -119,8 +129,9 @@ class BimanualUmiEnv:
                     return data
                 transform.append(tf4k)
             else:
+                print('1920x1080 20Hz')
                 res = (1920, 1080)
-                fps = 60
+                fps = 20
                 buf = 1
                 bit_rate = 3000*1000
 
@@ -156,7 +167,8 @@ class BimanualUmiEnv:
             resolution.append(res)
             capture_fps.append(fps)
             cap_buffer_size.append(buf)
-            video_recorder.append(VideoRecorder.create_hevc_nvenc(
+            # video_recorder.append(VideoRecorder.create_hevc_nvenc(
+            video_recorder.append(VideoRecorder.create_h264(
                 fps=fps,
                 input_pix_fmt='bgr24',
                 bit_rate=bit_rate
