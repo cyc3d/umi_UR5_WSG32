@@ -117,7 +117,7 @@ In this section, we will demonstrate our real-world deployment/evaluation system
         * Disable "Use text based Interface"
         * Enable CRC
     * In Scripting > File Manager
-        * Upload [umi/real_world/cmd_measure.lua](umi/real_world/cmd_measure.lua)
+        * Upload [umi/real_world/cmd_measure_mod.lua](umi/real_world/cmd_measure.lua)
     * In Settings > System
         * Enable Startup Script
         * Select `/user/cmd_measure.lua` you just uploaded.
